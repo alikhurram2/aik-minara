@@ -11,7 +11,7 @@
 const MASJID_CONFIG = {
   // Masjid Name & Subtitle
   masjidName: "Aik Minara Masjid",
-  tagline: "Daily Congregational Prayer Timings",
+  tagline: "Jamaat Timings Today",
   location: "Lahore, Pakistan",
 
   // Google Sheet Configuration
