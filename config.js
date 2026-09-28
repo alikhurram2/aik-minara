@@ -17,7 +17,7 @@ const MASJID_CONFIG = {
   // Google Sheet Configuration
   // Make sure your Google Sheet is shared with "Anyone with the link can view"
   // You can set this to your Sheet ID once created. A demo sheet ID or local storage is used by default.
-  sheetId: "", // Leave blank to use built-in default/demo data or configure via the on-screen Setup modal
+  sheetId: "1CDIU-Nr81-bXgrtV8koX4hD-IfqYtkPWyUKpG0--Y0o",
 
   // Sheet tab/gid name (default is first sheet: "Sheet1" or gid=0)
   sheetName: "Sheet1",
@@ -28,12 +28,12 @@ const MASJID_CONFIG = {
   // Fallback / Initial default timings (used if offline or while sheet is loading)
   // Format: Hour (1-12), Minute (0-59). AM/PM is fixed (Fajr = AM, all others = PM)
   defaultTimings: {
-    fajr: { hour: 5, minute: 15, name: "Fajr", arabic: "الفجر" },
-    zuhr: { hour: 1, minute: 30, name: "Zuhr", arabic: "الظهر" },
-    asr: { hour: 5, minute: 0, name: "Asr", arabic: "العصر" },
-    maghrib: { hour: 6, minute: 40, name: "Maghrib", arabic: "المغرب" },
-    isha: { hour: 8, minute: 15, name: "Isha", arabic: "العشاء" },
-    jumuah: { hour: 1, minute: 30, name: "Jumu'ah", arabic: "الجمعة" }
+    fajr: { hour: 5, minute: 30, name: "Fajr", arabic: "الفجر" },
+    zuhr: { hour: 1, minute: 15, name: "Zuhr", arabic: "الظهر" },
+    asr: { hour: 4, minute: 15, name: "Asr", arabic: "العصر" },
+    maghrib: { hour: 6, minute: 25, name: "Maghrib", arabic: "المغرب" },
+    isha: { hour: 8, minute: 45, name: "Isha", arabic: "العشاء" },
+    jumuah: { hour: 1, minute: 15, name: "Jumu'ah", arabic: "الجمعة" }
   }
 };
 
