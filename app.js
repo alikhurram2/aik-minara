@@ -23,6 +23,12 @@
     jumuah: { name: "Jumu'ah", arabic: 'الجمعة', period: 'PM' }
   };
 
+  const ISLAMIC_MONTHS = [
+    'Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani',
+    'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Sha\'ban',
+    'Ramadan', 'Shawwal', 'Dhu al-Qi\'dah', 'Dhu al-Hijjah'
+  ];
+
   // DOM Elements
   const el = {
     clock: document.getElementById('liveClock'),
@@ -216,6 +222,78 @@
   }
 
   /**
+   * Get accurate Islamic (Hijri) date string
+   * Guarantees Islamic month names and AH era (never Gregorian months or BC)
+   */
+  function getHijriDate(date) {
+    const userOffset = (typeof MASJID_CONFIG !== 'undefined' && MASJID_CONFIG.hijriOffset !== undefined)
+      ? MASJID_CONFIG.hijriOffset
+      : 0;
+
+    // Apply any user-configured day offset
+    const d = new Date(date);
+    if (userOffset !== 0) {
+      d.setDate(d.getDate() + userOffset);
+    }
+
+    // 1. Attempt using Intl with Umm al-Qura if browser supports it properly
+    try {
+      const formatter = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric'
+      });
+      const parts = formatter.formatToParts(d);
+      let day, month, year, isBC = false;
+      for (const p of parts) {
+        if (p.type === 'day') day = parseInt(p.value, 10);
+        if (p.type === 'month') month = parseInt(p.value, 10);
+        if (p.type === 'year') year = parseInt(p.value, 10);
+        if (p.type === 'era' && p.value && p.value.toUpperCase().includes('BC')) isBC = true;
+      }
+      if (!isBC && day >= 1 && day <= 30 && month >= 1 && month <= 12 && year >= 1400 && year <= 1600) {
+        return `${day} ${ISLAMIC_MONTHS[month - 1]} ${year} AH`;
+      }
+    } catch (e) {
+      // Fall through to calculation
+    }
+
+    // 2. Reliable astronomical / Tabular conversion fallback
+    const calcDate = new Date(d);
+    // Baseline tabular offset to align with Umm al-Qura
+    calcDate.setDate(calcDate.getDate() - 1);
+
+    let y = calcDate.getFullYear();
+    let m = calcDate.getMonth() + 1;
+    let day = calcDate.getDate();
+
+    let jd;
+    if ((y > 1582) || ((y === 1582) && (m > 10)) || ((y === 1582) && (m === 10) && (day > 14))) {
+      jd = Math.floor((1461 * (y + 4800 + Math.floor((m - 14) / 12))) / 4) +
+           Math.floor((367 * (m - 2 - 12 * (Math.floor((m - 14) / 12)))) / 12) -
+           Math.floor((3 * (Math.floor((y + 4900 + Math.floor((m - 14) / 12)) / 100))) / 4) +
+           day - 32075;
+    } else {
+      jd = 365 * y + Math.floor(y / 4) + Math.floor((365 * m) - 367) / 12 + day - 577733;
+    }
+
+    let l = jd - 1948440 + 10632;
+    const n = Math.floor((l - 1) / 10631);
+    l = l - 10631 * n + 354;
+    const j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) + (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
+    l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
+
+    const mH = Math.floor((24 * l) / 709);
+    const dH = l - Math.floor((709 * mH) / 24);
+    const yH = 30 * n + j - 30;
+
+    if (mH >= 1 && mH <= 12) {
+      return `${dH} ${ISLAMIC_MONTHS[mH - 1]} ${yH} AH`;
+    }
+    return '';
+  }
+
+  /**
    * Live Clock & Calendar Dates
    */
   function startClock() {
@@ -235,16 +313,7 @@
         day: 'numeric'
       });
 
-      try {
-        const hijriFormatter = new Intl.DateTimeFormat('en-TN-u-ca-islamic-umalqura', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric'
-        });
-        el.hijriDate.textContent = hijriFormatter.format(now);
-      } catch (e) {
-        el.hijriDate.textContent = '';
-      }
+      el.hijriDate.textContent = getHijriDate(now);
     }
 
     tick();

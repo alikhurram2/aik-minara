@@ -25,6 +25,9 @@ const MASJID_CONFIG = {
   // Refresh interval in seconds (auto-updates the timings in background)
   refreshIntervalSeconds: 60,
 
+  // Optional Hijri date day adjustment (+1, 0, -1) to match local moon sighting if needed
+  hijriOffset: 0,
+
   // Fallback / Initial default timings (used if offline or while sheet is loading)
   // Format: Hour (1-12), Minute (0-59). AM/PM is fixed (Fajr = AM, all others = PM)
   defaultTimings: {
