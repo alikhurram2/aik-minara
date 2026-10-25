@@ -248,6 +248,46 @@ body {
   box-shadow: 0 0 6px #ef4444;
 }
 
+/* Tabs */
+.tab-bar {
+  display: flex;
+  gap: 6px;
+  padding: 5px;
+  margin-bottom: 20px;
+  background: rgba(6, 35, 26, 0.7);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px 8px;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tab-btn.active {
+  background: var(--emerald-primary);
+  color: #03130e;
+}
+
+.tab-panel[hidden] {
+  display: none;
+}
+
+.prayers-list-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 /* Khutbah Recordings */
 .khutbah-section {
   margin-bottom: 24px;

@@ -14,6 +14,12 @@
   <div class="pattern-overlay"></div>
 
   <div class="app-container">
+    <!-- Tabs -->
+    <nav class="tab-bar" role="tablist">
+      <button class="tab-btn active" role="tab" id="tab-timings" data-tab="timings" aria-selected="true">Prayer Timings</button>
+      <button class="tab-btn" role="tab" id="tab-khutbah" data-tab="khutbah" aria-selected="false">Khutbah Audio</button>
+    </nav>
+
     <!-- Header -->
     <header class="masjid-header">
       <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
@@ -37,13 +43,15 @@
     </header>
 
     <!-- Vertical Timings List -->
-    <main class="prayers-list" id="prayersList">
+    <main class="prayers-list tab-panel" id="panel-timings" role="tabpanel" aria-labelledby="tab-timings">
+      <div class="prayers-list-inner" id="prayersList">
       <!-- 6 Prayer cards populated dynamically by app.js -->
+      </div>
     </main>
 
     <!-- Jumu'ah Khutbah Recordings -->
-    <section class="khutbah-section" aria-labelledby="khutbahTitle">
-      <h2 class="khutbah-heading" id="khutbahTitle">
+    <section class="khutbah-section tab-panel" id="panel-khutbah" role="tabpanel" aria-labelledby="tab-khutbah" hidden>
+      <h2 class="khutbah-heading" >
         Jumu'ah Khutbah Recordings
         <span class="khutbah-arabic">خطبة الجمعة</span>
       </h2>
@@ -64,5 +72,6 @@
   <script src="app.js"></script>
   <script src="khutbah.js"></script>
   <script src="khutbah-ui.js"></script>
+  <script src="tabs.js"></script>
 </body>
 </html>
