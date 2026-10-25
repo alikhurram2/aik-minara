@@ -248,6 +248,69 @@ body {
   box-shadow: 0 0 6px #ef4444;
 }
 
+/* Khutbah Recordings */
+.khutbah-section {
+  margin-bottom: 24px;
+}
+
+.khutbah-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.khutbah-arabic {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: 1.15rem;
+  color: var(--gold-primary);
+}
+
+.khutbah-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.khutbah-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+}
+
+.khutbah-date {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.khutbah-speaker {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.khutbah-card audio {
+  width: 100%;
+  height: 40px;
+}
+
+.khutbah-download {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--gold-primary);
+  text-decoration: none;
+}
+
+.khutbah-download:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 480px) {
   .masjid-title {
     font-size: 1.8rem;
