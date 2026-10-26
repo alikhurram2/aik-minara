@@ -226,6 +226,21 @@
    * Guarantees Islamic month names and AH era (never Gregorian months or BC)
    */
   function getHijriDate(date) {
+    // 0. Pakistan moon-sighting table (exact, set by Ruet-e-Hilal announcements)
+    const starts = (typeof MASJID_CONFIG !== 'undefined' && MASJID_CONFIG.hijriMonthStarts) || [];
+    if (starts.length) {
+      const ymd = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi' }).format(date);
+      const dayNum = (s) => Date.UTC(...s.split('-').map((v, i) => i === 1 ? v - 1 : +v)) / 86400000;
+      let last = null;
+      for (const st of starts) if (st.date <= ymd) last = st;
+      if (last) {
+        const day = dayNum(ymd) - dayNum(last.date) + 1;
+        if (day >= 1 && day <= 30) {
+          return `${day} ${ISLAMIC_MONTHS[last.month - 1]} ${last.year} AH`;
+        }
+      }
+    }
+
     const userOffset = (typeof MASJID_CONFIG !== 'undefined' && MASJID_CONFIG.hijriOffset !== undefined)
       ? MASJID_CONFIG.hijriOffset
       : 0;
@@ -241,7 +256,8 @@
       const formatter = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
         day: 'numeric',
         month: 'numeric',
-        year: 'numeric'
+        year: 'numeric',
+        timeZone: 'Asia/Karachi'
       });
       const parts = formatter.formatToParts(d);
       let day, month, year, isBC = false;

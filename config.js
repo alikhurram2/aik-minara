@@ -25,8 +25,16 @@ const MASJID_CONFIG = {
   // Refresh interval in seconds (auto-updates the timings in background)
   refreshIntervalSeconds: 60,
 
-  // Optional Hijri date day adjustment (+1, 0, -1) to match local moon sighting if needed
-  hijriOffset: 0,
+  // Pakistan's Islamic date follows local moon sighting (Ruet-e-Hilal), which is
+  // usually 1 day behind Saudi (Umm al-Qura). This offset is only used as a fallback
+  // when hijriMonthStarts below is out of date.
+  hijriOffset: -1,
+
+  // Gregorian date on which each Islamic month began in Pakistan (1st of the month).
+  // ADD ONE LINE after each moon-sighting announcement (once a month). Newest last.
+  hijriMonthStarts: [
+    { date: "2026-10-13", month: 5, year: 1448 }  // 1 Jumada al-Awwal 1448 (Ruet-e-Hilal)
+  ],
 
   // Fallback / Initial default timings (used if offline or while sheet is loading)
   // Format: Hour (1-12), Minute (0-59). AM/PM is fixed (Fajr = AM, all others = PM)

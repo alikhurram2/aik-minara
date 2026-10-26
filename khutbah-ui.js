@@ -20,7 +20,7 @@
 
     const date = document.createElement('div');
     date.className = 'khutbah-date';
-    date.textContent = formatDate(k.date);
+    date.textContent = formatDate(k.date) + (k.title ? ' · ' + k.title : '');
 
     const speaker = document.createElement('div');
     speaker.className = 'khutbah-speaker';
