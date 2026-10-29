@@ -44,10 +44,57 @@
 
     <!-- Vertical Timings List -->
     <main class="prayers-list tab-panel" id="panel-timings" role="tabpanel" aria-labelledby="tab-timings">
+      <!-- Friday Khutbah Announcement Banner -->
+      <section class="friday-announcement" aria-label="Friday Khutbah Announcement">
+        <div class="announcement-badge-row">
+          <span class="announcement-badge">
+            <span class="announcement-badge-pulse"></span>
+            Friday Khutbah • خطبة جمعة المباركة
+          </span>
+          <span class="announcement-date-tag">30 Oct 2026</span>
+        </div>
+
+        <div class="announcement-image-wrapper" id="openImageBtn" role="button" tabindex="0" title="Click to view full flyer">
+          <img src="images/friday-khutbah-announcement.png" alt="Friday Khutbah Announcement - 30 October 2026 - Shaykh Hafiz Sohaib Shahid Dehlavi" class="announcement-poster">
+          <span class="announcement-zoom-hint">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+            Tap to view
+          </span>
+        </div>
+
+        <div class="announcement-meta">
+          <div class="meta-item">
+            <span class="meta-label">Khutbah • خطبہ</span>
+            <span class="meta-value highlight">12:40 PM</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Jama'at • جماعت</span>
+            <span class="meta-value highlight">1:15 PM</span>
+          </div>
+          <div class="meta-speaker">
+            الشيخ حافظ صہیب شاہد دہلوی <span class="speaker-honorific">حفظہ اللہ</span>
+            <div class="speaker-en">Shaykh Hafiz Sohaib Shahid Dehlavi</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Divider -->
+      <div class="section-divider">
+        <span>Daily Jama'at Timings</span>
+      </div>
+
       <div class="prayers-list-inner" id="prayersList">
       <!-- 6 Prayer cards populated dynamically by app.js -->
       </div>
     </main>
+
+    <!-- Fullscreen Flyer Modal -->
+    <div class="image-modal-backdrop" id="imageModal" aria-hidden="true">
+      <div class="image-modal-content">
+        <button class="image-modal-close" id="closeImageModal" aria-label="Close flyer view">&times;</button>
+        <img src="images/friday-khutbah-announcement.png" alt="Friday Khutbah Announcement - Full Flyer">
+      </div>
+    </div>
 
     <!-- Jumu'ah Khutbah Recordings -->
     <section class="khutbah-section tab-panel" id="panel-khutbah" role="tabpanel" aria-labelledby="tab-khutbah" hidden>
@@ -73,5 +120,49 @@
   <script src="khutbah.js"></script>
   <script src="khutbah-ui.js"></script>
   <script src="tabs.js"></script>
+  <script>
+    (function () {
+      var openBtn = document.getElementById('openImageBtn');
+      var modal = document.getElementById('imageModal');
+      var closeBtn = document.getElementById('closeImageModal');
+
+      function openModal() {
+        if (!modal) return;
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        if (!modal) return;
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      if (openBtn) {
+        openBtn.addEventListener('click', openModal);
+        openBtn.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal();
+          }
+        });
+      }
+
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (modal) {
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) closeModal();
+        });
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

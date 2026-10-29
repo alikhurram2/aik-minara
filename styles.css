@@ -347,6 +347,280 @@ body {
   text-decoration: none;
 }
 
+/* ========================================================
+   Friday Khutbah Announcement Card
+   ======================================================== */
+.friday-announcement {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(245, 158, 11, 0.18);
+  transition: all 0.25s ease;
+}
+
+.friday-announcement:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 30px rgba(245, 158, 11, 0.25);
+}
+
+.announcement-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.announcement-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gold-primary);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+.announcement-badge-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  box-shadow: 0 0 8px var(--gold-primary);
+  animation: pulse-dot 1.8s infinite;
+}
+
+.announcement-date-tag {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.announcement-image-wrapper {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: #000;
+  cursor: pointer;
+  display: block;
+}
+
+.announcement-poster {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.announcement-image-wrapper:hover .announcement-poster {
+  transform: scale(1.015);
+}
+
+.announcement-zoom-hint {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(3, 19, 14, 0.88);
+  backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.announcement-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.meta-item {
+  background: rgba(6, 35, 26, 0.7);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.meta-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.meta-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.meta-value.highlight {
+  color: var(--gold-primary);
+}
+
+.meta-speaker {
+  grid-column: 1 / -1;
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 35, 26, 0.85) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  line-height: 1.4;
+}
+
+.speaker-honorific {
+  font-size: 0.95rem;
+  color: var(--gold-primary);
+  font-weight: 400;
+}
+
+.speaker-en {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Section Divider */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 18px 0 8px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-color), transparent);
+}
+
+/* ========================================================
+   Image Lightbox Modal
+   ======================================================== */
+.image-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.image-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 92vw;
+  max-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-modal-content img {
+  max-width: 100%;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  object-fit: contain;
+}
+
+.image-modal-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 36px;
+  height: 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: 50%;
+  color: var(--gold-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.image-modal-close:hover {
+  background: var(--gold-primary);
+  color: #000;
+  transform: scale(1.1);
+}
+
+@media (max-width: 480px) {
+  .announcement-badge {
+    font-size: 0.72rem;
+    padding: 3px 8px;
+  }
+
+  .meta-value {
+    font-size: 1.2rem;
+  }
+
+  .meta-speaker {
+    font-size: 1.2rem;
+  }
+
+  .image-modal-close {
+    top: 8px;
+    right: 8px;
+  }
+}
+
 .khutbah-download:hover {
   text-decoration: underline;
 }
