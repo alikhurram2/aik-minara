@@ -17,7 +17,7 @@
     <!-- Tabs -->
     <nav class="tab-bar" role="tablist">
       <button class="tab-btn active" role="tab" id="tab-timings" data-tab="timings" aria-selected="true">Prayer Timings</button>
-      <button class="tab-btn" role="tab" id="tab-khutbah" data-tab="khutbah" aria-selected="false">Khutbah Audio</button>
+      <button class="tab-btn" role="tab" id="tab-khutbah" data-tab="khutbah" aria-selected="false">Khutbah</button>
     </nav>
 
     <!-- Header -->
@@ -44,6 +44,13 @@
 
     <!-- Vertical Timings List -->
     <main class="prayers-list tab-panel" id="panel-timings" role="tabpanel" aria-labelledby="tab-timings">
+      <div class="prayers-list-inner" id="prayersList">
+      <!-- 6 Prayer cards populated dynamically by app.js -->
+      </div>
+    </main>
+
+    <!-- Jumu'ah Khutbah Section -->
+    <section class="khutbah-section tab-panel" id="panel-khutbah" role="tabpanel" aria-labelledby="tab-khutbah" hidden>
       <!-- Native Friday Khutbah Announcement Card -->
       <section class="friday-announcement" aria-label="Friday Khutbah Announcement">
         <div class="announcement-top-bar">
@@ -96,21 +103,9 @@
         </div>
       </section>
 
-      <!-- Section Divider -->
-      <div class="section-divider">
-        <span>Daily Jama'at Timings</span>
-      </div>
-
-      <div class="prayers-list-inner" id="prayersList">
-      <!-- 6 Prayer cards populated dynamically by app.js -->
-      </div>
-    </main>
-
-    <!-- Jumu'ah Khutbah Recordings -->
-    <section class="khutbah-section tab-panel" id="panel-khutbah" role="tabpanel" aria-labelledby="tab-khutbah" hidden>
-      <h2 class="khutbah-heading" >
-        Jumu'ah Khutbah Recordings
-        <span class="khutbah-arabic">خطبة الجمعة</span>
+      <h2 class="khutbah-heading">
+        Recorded Khutbahs
+        <span class="khutbah-arabic">خطبات جمعة</span>
       </h2>
       <div class="khutbah-list" id="khutbahList"></div>
     </section>
